@@ -1,0 +1,33 @@
+:root{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#formContainer .formTitle{
+    text-align: center;
+}
+
+#contactForm{
+    border: solid;
+    border-color:rgb(197, 193, 193);
+    border-radius: 5px;
+    padding: 5px;
+    height: 500px;
+    width: 400px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#contactForm .errorMessage{
+    padding: none;
+    margin-top: 0;
+    color: rgb(248, 82, 82);
+}
+
+#contactForm textarea{
+    max-width: 97%;
+    resize: none; /*now textArea size won't change*/
+}
