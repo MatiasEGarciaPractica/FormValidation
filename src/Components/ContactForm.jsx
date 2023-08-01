@@ -1,37 +1,45 @@
 import { useForm } from "../hooks/useForm";
 
 const intialForm = { /*initial values in form inputs or textarea*/
-    name:"",
-    mail:"",
-    subject:"",
-    comments:""
+    name: "",
+    mail: "",
+    subject: "",
+    comments: ""
 };
-const validationsForm = (form) => {
+const validationsForm = (form, fieldsTouched) => {
     let errors = {};
     let regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
     let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
     let regexComments = /^.{1,255}$/;
 
-    if(!form.name.trim()){
-        errors.name = "field name is required";
-    }else if(!regexName.test(form.name.trim())){
-        errors.name = "field name only accepts letters and space";
+    if (fieldsTouched.find(item => item === "name")) {//the validation only will work if the user touch the input
+        if (!form.name.trim()) {
+            errors.name = "field name is required";
+        } else if (!regexName.test(form.name.trim())) {
+            errors.name = "field name only accepts letters and space";
+        }
     }
 
-    if(!form.mail.trim()){
-        errors.mail = "field mail is required";
-    }else if(!regexEmail.test(form.mail.trim())){
-        errors.mail = "field mail only accepts mails";
+    if (fieldsTouched.find(item => item === "mail")) {
+        if (!form.mail.trim()) {
+            errors.mail = "field mail is required";
+        } else if (!regexEmail.test(form.mail.trim())) {
+            errors.mail = "field mail only accepts mails";
+        }
     }
 
-    if(!form.subject.trim()){
-        errors.subject = "field subject is required";
+    if (fieldsTouched.find(item => item === "subject")) {
+        if (!form.subject.trim()) {
+            errors.subject = "field subject is required";
+        }
     }
 
-    if(!form.comments.trim()){
-        errors.comments = "field comments is required";
-    }else if(!regexComments.test(form.comments.trim())){
-        errors.comments = "field comments only accepts 255 characteres";
+    if (fieldsTouched.find(item => item === "comments")) {
+        if (!form.comments.trim()) {
+            errors.comments = "field comments is required";
+        } else if (!regexComments.test(form.comments.trim())) {
+            errors.comments = "field comments only accepts 255 characteres";
+        }
     }
 
     return errors;
