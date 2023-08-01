@@ -12,34 +12,26 @@ const validationsForm = (form, fieldsTouched) => {
     let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
     let regexComments = /^.{1,255}$/;
 
-    if (fieldsTouched.find(item => item === "name")) {//the validation only will work if the user touch the input
-        if (!form.name.trim()) {
-            errors.name = "field name is required";
-        } else if (!regexName.test(form.name.trim())) {
-            errors.name = "field name only accepts letters and space";
-        }
+    if (!form.name.trim()) {
+        errors.name = "field name is required";
+    } else if (!regexName.test(form.name.trim())) {
+        errors.name = "field name only accepts letters and space";
     }
 
-    if (fieldsTouched.find(item => item === "mail")) {
-        if (!form.mail.trim()) {
-            errors.mail = "field mail is required";
-        } else if (!regexEmail.test(form.mail.trim())) {
-            errors.mail = "field mail only accepts mails";
-        }
+    if (!form.mail.trim()) {
+        errors.mail = "field mail is required";
+    } else if (!regexEmail.test(form.mail.trim())) {
+        errors.mail = "field mail only accepts mails";
     }
 
-    if (fieldsTouched.find(item => item === "subject")) {
-        if (!form.subject.trim()) {
-            errors.subject = "field subject is required";
-        }
+    if (!form.subject.trim()) {
+        errors.subject = "field subject is required";
     }
 
-    if (fieldsTouched.find(item => item === "comments")) {
-        if (!form.comments.trim()) {
-            errors.comments = "field comments is required";
-        } else if (!regexComments.test(form.comments.trim())) {
-            errors.comments = "field comments only accepts 255 characteres";
-        }
+    if (!form.comments.trim()) {
+        errors.comments = "field comments is required";
+    } else if (!regexComments.test(form.comments.trim())) {
+        errors.comments = "field comments only accepts 255 characteres";
     }
 
     return errors;
@@ -47,6 +39,7 @@ const validationsForm = (form, fieldsTouched) => {
 
 const ContactForm = () => {
     const { form,
+        fieldsTouched,
         errors,
         loading,
         response,
@@ -64,7 +57,7 @@ const ContactForm = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     required />
-                {errors.name && <p className="errorMessage">{errors.name}</p>}
+                {errors.name && fieldsTouched.name && <p className="errorMessage">{errors.name}</p>}
                 <input type="mail"
                     name="mail"
                     placeholder="Write your mail"
@@ -72,7 +65,7 @@ const ContactForm = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     required />
-                {errors.mail && <p className="errorMessage">{errors.mail}</p>}
+                {errors.mail && fieldsTouched.mail &&<p className="errorMessage">{errors.mail}</p>}
                 <input type="text"
                     name="subject"
                     placeholder="Write your subject"
@@ -80,7 +73,7 @@ const ContactForm = () => {
                     onChange={handleChange}
                     onBlur={handleBlur}
                     required />
-                {errors.subject && <p className="errorMessage">{errors.subject}</p>}
+                {errors.subject && fieldsTouched.subject &&<p className="errorMessage">{errors.subject}</p>}
                 <textarea name="comments"
                     cols="50"
                     rows="5"
@@ -88,7 +81,7 @@ const ContactForm = () => {
                     value={form.comments}
                     onChange={handleChange}
                     onBlur={handleBlur}></textarea>
-                {errors.comments && <p className="errorMessage">{errors.comments}</p>}
+                {errors.comments && fieldsTouched.comments &&<p className="errorMessage">{errors.comments}</p>}
                 <button type="submit">Send</button>
             </form>
         </div>
