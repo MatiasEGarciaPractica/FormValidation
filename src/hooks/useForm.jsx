@@ -32,8 +32,20 @@ export const useForm = (initialForm,validateForm) => {
         handleChange(e);
         setErrors(validateForm(form,fieldsTouched));
     };
-    
-    const handleSubmit= (e) => {};
+
+    const handleSubmit= (e) => {
+        e.preventDefault();
+        setErrors(validateForm(form,fieldsTouched));
+
+        if(Object.keys(errors).length === 0){
+            alert("enviando formulario");
+            setLoading(true);//with this we can set a loader in the UI
+
+            /* here the code to process the form*/
+        }else{
+            return;
+        }
+    };
 
     return{form,errors,loading,response,handleChange,handleBlur,handleSubmit}
 };
